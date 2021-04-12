@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import ProductTable from "./ProductTable";
+import React from "react"
+import ReactDOM from "react-dom"
+import ProductTable from "./ProductTable"
 
 
 //localhost:8081/deleteProduct?number=3
@@ -14,7 +14,8 @@ class DeleteProduct extends React.Component {
             }}>НАЗАД
             </button><button style={{backgroundColor:"#f2805c"}} onClick={()=>{
                 fetch(`http://localhost:8081/deleteProduct?number=${this.props.prodNum}`).then(()=>{
-                    ReactDOM.render(<ProductTable orderNum={this.props.orderNum}/>, document.getElementById('root'))
+                    ReactDOM.render(<ProductTable orderNum={this.props.orderNum}/>,
+                        document.getElementById('root'))
                 })
             }
             }>УДАЛИТЬ</button></p>
