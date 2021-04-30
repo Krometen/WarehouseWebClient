@@ -13,7 +13,9 @@ class DeleteProduct extends React.Component {
                 , document.getElementById('root'))
             }}>НАЗАД
             </button><button style={{backgroundColor:"#f2805c"}} onClick={()=>{
-                fetch(`http://localhost:8081/deleteProduct?number=${this.props.prodNum}`).then(()=>{
+                fetch(`http://localhost:8081/deleteProduct?number=${this.props.prodNum}`,{
+                    method:'DELETE'
+                }).then(()=>{
                     ReactDOM.render(<ProductTable orderNum={this.props.orderNum}/>, document.getElementById('root'))
                 })
             }
