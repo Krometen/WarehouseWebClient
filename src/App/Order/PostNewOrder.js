@@ -17,8 +17,19 @@ class PostNewOrder extends React.Component {
                 <button style={{backgroundColor:'#87e49a'}} onClick={()=>{
                     let newDate = $('#newDate').val()
                     let newAddress = $('#newAddress').val()
-                    fetch(`http://localhost:8081/postNewOrder?date=${newDate}&address=${newAddress}`)
-                        .then(()=>{ReactDOM.render(<OrderTable/>, document.getElementById('root'))})
+                    fetch(`http://localhost:8081/postNewOrder`, {
+                        method:'POST',
+                        headers:{
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        body: JSON.stringify({
+                            date:newDate,
+                            address:newAddress
+                        })
+                    })
+                        .then(()=>{
+                            ReactDOM.render(<OrderTable/>, document.getElementById('root'))
+                        })
                 }}>СОХРАНИТЬ</button>
 
                 <figure className="postNewOrderBox" style={{margin:'1em', marginLeft:'4em', marginTop:'30px'}}>

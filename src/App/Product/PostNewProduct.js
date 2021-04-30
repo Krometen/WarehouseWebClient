@@ -18,7 +18,18 @@ class PostNewProduct extends React.Component {
                     let newName = $('#newName').val()
                     let newPrice = $('#newPrice').val()
                     let newWeight = $('#newWeight').val()
-                    fetch(`http://localhost:8081/postNewProduct?productName=${newName}&price=${newPrice}&weight=${newWeight}&orderNumber=${this.props.orderNum}`)
+            fetch('http://localhost:8081/postNewProduct',{
+                method:'POST',
+                        headers:{
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        body: JSON.stringify({
+                            productName:newName,
+                            price:newPrice,
+                            weight:newWeight, 
+                            orderNumber:this.props.orderNum
+                        })
+            })
                         .then(()=>{ReactDOM.render(<ProductTable orderNum={this.props.orderNum}/>
                             , document.getElementById('root'))})
                 }}>СОХРАНИТЬ</button>

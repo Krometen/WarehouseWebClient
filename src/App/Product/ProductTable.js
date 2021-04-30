@@ -19,7 +19,7 @@ class ProductTable extends React.Component {
     }
     componentDidMount() {
         $.ajax({
-            url: `http://localhost:8081/getProducts?order=${this.props.orderNum}`,
+            url: `http://localhost:8081/getProducts?orderNumber=${this.props.orderNum}`,
             type: "GET",
             dataType: 'json',
             ContentType: 'application/json',
@@ -43,7 +43,9 @@ class ProductTable extends React.Component {
                         }}>НАЗАД
                         </button>
                         <button id="addProduct" style={{backgroundColor:'red', color: 'whitesmoke'}} onClick={()=>{
-                            fetch(`http://localhost:8081/deleteOrder?number=${this.props.orderNum}`).then(()=>{
+                            fetch(`http://localhost:8081/deleteOrder?number=${this.props.orderNum}`,{
+                                method:"DELETE"
+                            }).then(()=>{
                                 ReactDOM.render(<OrderTable/>, document.getElementById('root'))
                             })
                         }}>УДАЛИТЬ ЗАКАЗ
