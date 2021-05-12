@@ -2,7 +2,8 @@ import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom";
 import PostNewOrder from "./PostNewOrder";
-import ProductTable from "../Product/ProductTable";
+import ProductTable from "../productComponent/ProductTable";
+import getOrders from "../OrderService";
 
 class OrderTable extends React.Component {
   constructor() {

@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import OrderTable from "../Order/OrderTable";
+import OrderTable from "../orderComponent/OrderTable";
 import PostNewProduct from "./PostNewProduct";
 import DeleteProduct from "./DeleteProduct";
-import axios from "axios";
+import { getProducts } from "../service/productService";
+import { deleteOrder } from "../service/orderService";
 
 class ProductTable extends React.Component {
   constructor() {
@@ -16,20 +17,16 @@ class ProductTable extends React.Component {
     ReactDOM.render(<ProductTable />, document.getElementById("root"));
   }
   componentDidMount() {
-    axios
-      .get(
-        `http://localhost:8080/getProducts?orderNumber=${this.props.orderId}`
-      )
-      .then((resp) => {
-        this.setState({ data: resp.data });
-      });
+    getProducts(this.props.orderId).then((resp) => {
+      this.setState({ data: resp.data });
+    });
   }
   render() {
     return (
       <div>
         <figure className="ProductsBox">
-          <p id={"orderNum"} style={{ fontSize: "large", marginLeft: "3em" }}>
-            <strong>ПРОДУКТЫ ЗАКАЗА №{this.props.orderNum}</strong>
+          <p id={"orderId"} style={{ fontSize: "large", marginLeft: "3em" }}>
+            <strong>ПРОДУКТЫ ЗАКАЗА №{this.props.orderId}</strong>
           </p>
           <figure style={{ marginLeft: "9.5em", marginTop: "3em" }}>
             <button
@@ -48,16 +45,12 @@ class ProductTable extends React.Component {
               id="addProduct"
               style={{ backgroundColor: "red", color: "whitesmoke" }}
               onClick={() => {
-                axios
-                  .delete(
-                    `http://localhost:8080/deleteOrder?number=${this.props.orderId}`
-                  )
-                  .then(() => {
-                    ReactDOM.render(
-                      <OrderTable />,
-                      document.getElementById("root")
-                    );
-                  });
+                deleteOrder(this.props.orderId).then(() => {
+                  ReactDOM.render(
+                    <OrderTable />,
+                    document.getElementById("root")
+                  );
+                });
               }}
             >
               УДАЛИТЬ ЗАКАЗ
@@ -67,7 +60,7 @@ class ProductTable extends React.Component {
               style={{ backgroundColor: "#6b957c", color: "whitesmoke" }}
               onClick={() => {
                 ReactDOM.render(
-                  <PostNewProduct orderNum={this.props.orderNum} />,
+                  <PostNewProduct orderId={this.props.orderId} />,
                   document.getElementById("root")
                 );
               }}
@@ -120,29 +113,26 @@ class ProductTable extends React.Component {
           {/* eslint-disable-next-line array-callback-return */}
           <tbody>
             {this.state.data.map(function (item, key) {
-              if (item.deleted !== true) {
-                return (
-                  <tr
-                    key={key}
-                    onClick={() => {
-                      ReactDOM.render(
-                        <DeleteProduct
-                          prodNum={item.productNumber}
-                          orderNum={item.orderNumber}
-                        />,
-                        document.getElementById("root")
-                      );
-                      console.log("pn " + item.productNumber);
-                      console.log("on " + item.orderNumber);
-                    }}
-                  >
-                    <td>{item.productNumber}</td>
-                    <td>{item.productName}</td>
-                    <td>{item.price}</td>
-                    <td>{item.weight}</td>
-                  </tr>
-                );
-              }
+              return (
+                <tr
+                  key={key}
+                  onClick={() => {
+                    ReactDOM.render(
+                      <DeleteProduct
+                        prodNum={item.productNumber}
+                        prodId={item.id}
+                        orderNum={item.orderNumber}
+                      />,
+                      document.getElementById("root")
+                    );
+                  }}
+                >
+                  <td>{item.productNumber}</td>
+                  <td>{item.productName}</td>
+                  <td>{item.price}</td>
+                  <td>{item.weight}</td>
+                </tr>
+              );
             })}
           </tbody>
         </table>

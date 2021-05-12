@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import $ from "jquery";
 import ProductTable from "./ProductTable";
-import axios from "axios";
+import { postNewProduct } from "../service/productService";
 
 class PostNewProduct extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class PostNewProduct extends React.Component {
           style={{ backgroundColor: "#9ad4e4" }}
           onClick={() => {
             ReactDOM.render(
-              <ProductTable orderNum={this.props.orderNum} />,
+              <ProductTable orderId={this.props.orderId} />,
               document.getElementById("root")
             );
           }}
@@ -26,19 +26,17 @@ class PostNewProduct extends React.Component {
             let newName = $("#newName").val();
             let newPrice = $("#newPrice").val();
             let newWeight = $("#newWeight").val();
-            axios
-              .post("http://localhost:8080/post-new-product", {
-                productName: newName,
-                price: newPrice,
-                weight: newWeight,
-                orderNumber: this.props.orderNum,
-              })
-              .then(() => {
-                ReactDOM.render(
-                  <ProductTable orderNum={this.props.orderNum} />,
-                  document.getElementById("root")
-                );
-              });
+            postNewProduct({
+              productName: newName,
+              price: newPrice,
+              weight: newWeight,
+              orderNumber: this.props.orderId,
+            }).then(() => {
+              ReactDOM.render(
+                <ProductTable orderId={this.props.orderId} />,
+                document.getElementById("root")
+              );
+            });
           }}
         >
           СОХРАНИТЬ

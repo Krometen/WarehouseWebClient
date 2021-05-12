@@ -1,7 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
+import { postNewOrder } from "../service/orderService";
 import OrderTable from "./OrderTable";
 
 class PostNewOrder extends React.Component {
@@ -22,18 +22,13 @@ class PostNewOrder extends React.Component {
             let newNumber = $("#newNumber").val();
             let newDate = $("#newDate").val();
             let newAddress = $("#newAddress").val();
-            axios
-              .post("http://localhost:8080/post-new-order", {
-                orderNumber: newNumber,
-                date: newDate,
-                address: newAddress,
-              })
-              .then(() => {
-                ReactDOM.render(
-                  <OrderTable />,
-                  document.getElementById("root")
-                );
-              });
+            postNewOrder({
+              orderNumber: newNumber,
+              date: newDate,
+              address: newAddress,
+            }).then(() => {
+              ReactDOM.render(<OrderTable />, document.getElementById("root"));
+            });
           }}
         >
           СОХРАНИТЬ

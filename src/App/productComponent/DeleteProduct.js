@@ -1,7 +1,7 @@
-import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom";
 import ProductTable from "./ProductTable";
+import { deleteProduct } from "../service/productService";
 
 class DeleteProduct extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class DeleteProduct extends React.Component {
             style={{ backgroundColor: "#9ad4e4" }}
             onClick={() => {
               ReactDOM.render(
-                <ProductTable orderNum={this.props.orderNum} />,
+                <ProductTable orderId={this.props.orderId} />,
                 document.getElementById("root")
               );
             }}
@@ -23,16 +23,12 @@ class DeleteProduct extends React.Component {
           <button
             style={{ backgroundColor: "#f2805c" }}
             onClick={() => {
-              axios
-                .delete(
-                  `http://localhost:8080/delete-product?id=${this.props.prodNum}`
-                )
-                .then(() => {
-                  ReactDOM.render(
-                    <ProductTable orderNum={this.props.orderNum} />,
-                    document.getElementById("root")
-                  );
-                });
+              deleteProduct(this.props.prodId).then(() => {
+                ReactDOM.render(
+                  <ProductTable orderId={this.props.orderId} />,
+                  document.getElementById("root")
+                );
+              });
             }}
           >
             УДАЛИТЬ
