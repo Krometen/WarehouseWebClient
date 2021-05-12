@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import OrderTable from "./App/Order/OrderTable";
+import OrderTable from "./component/Order/OrderTable";
 
 //Начальная страница - таблица заказов
-ReactDOM.render(<OrderTable/>, document.getElementById('root'))
+ReactDOM.render(<OrderTable />, document.getElementById("root"));

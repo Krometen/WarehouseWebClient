@@ -1,11 +1,10 @@
-import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
 import OrderTable from "../Order/OrderTable";
 import PostNewProduct from "./PostNewProduct";
 import DeleteProduct from "./DeleteProduct";
+import axios from "axios";
 
-//localhost:8081/getProducts?order=4
 class ProductTable extends React.Component {
   constructor() {
     super();
@@ -17,18 +16,13 @@ class ProductTable extends React.Component {
     ReactDOM.render(<ProductTable />, document.getElementById("root"));
   }
   componentDidMount() {
-    $.ajax({
-      url: `http://localhost:8081/getProducts?orderNumber=${this.props.orderNum}`,
-      type: "GET",
-      dataType: "json",
-      ContentType: "application/json",
-      success: function (data) {
-        this.setState({ data: data });
-      }.bind(this),
-      error: function (jqXHR) {
-        console.log(jqXHR);
-      }.bind(this),
-    });
+    axios
+      .get(
+        `http://localhost:8080/getProducts?orderNumber=${this.props.orderId}`
+      )
+      .then((resp) => {
+        this.setState({ data: resp.data });
+      });
   }
   render() {
     return (
@@ -54,17 +48,16 @@ class ProductTable extends React.Component {
               id="addProduct"
               style={{ backgroundColor: "red", color: "whitesmoke" }}
               onClick={() => {
-                fetch(
-                  `http://localhost:8081/deleteOrder?number=${this.props.orderNum}`,
-                  {
-                    method: "DELETE",
-                  }
-                ).then(() => {
-                  ReactDOM.render(
-                    <OrderTable />,
-                    document.getElementById("root")
-                  );
-                });
+                axios
+                  .delete(
+                    `http://localhost:8080/deleteOrder?number=${this.props.orderId}`
+                  )
+                  .then(() => {
+                    ReactDOM.render(
+                      <OrderTable />,
+                      document.getElementById("root")
+                    );
+                  });
               }}
             >
               УДАЛИТЬ ЗАКАЗ
@@ -93,7 +86,7 @@ class ProductTable extends React.Component {
                   color: "black",
                 }}
               >
-                НАИМЕНОВАНИЕ ТОВАРА
+                PRODUCT NUMBER
               </td>
               <td
                 style={{
@@ -102,7 +95,7 @@ class ProductTable extends React.Component {
                   color: "black",
                 }}
               >
-                ЦЕНА
+                PRODUCT NAME
               </td>
               <td
                 style={{
@@ -111,7 +104,16 @@ class ProductTable extends React.Component {
                   color: "black",
                 }}
               >
-                ВЕС
+                PRICE
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#92c492",
+                  position: "relative",
+                  color: "black",
+                }}
+              >
+                WEIGHT
               </td>
             </tr>
           </tbody>
@@ -134,6 +136,7 @@ class ProductTable extends React.Component {
                       console.log("on " + item.orderNumber);
                     }}
                   >
+                    <td>{item.productNumber}</td>
                     <td>{item.productName}</td>
                     <td>{item.price}</td>
                     <td>{item.weight}</td>
