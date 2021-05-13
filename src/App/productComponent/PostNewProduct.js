@@ -7,9 +7,9 @@ import { postNewProduct } from "../service/productService";
 class PostNewProduct extends React.Component {
   render() {
     return (
-      <div style={{ margin: "2em", marginLeft: "4em" }}>
+      <div className={"post-div"}>
         <button
-          style={{ backgroundColor: "#9ad4e4" }}
+          className={"back-button"}
           onClick={() => {
             ReactDOM.render(
               <ProductTable orderId={this.props.orderId} />,
@@ -21,11 +21,11 @@ class PostNewProduct extends React.Component {
         </button>
 
         <button
-          style={{ backgroundColor: "#87e49a" }}
+          className={"save-button"}
           onClick={() => {
-            let newName = $("#newName").val();
-            let newPrice = $("#newPrice").val();
-            let newWeight = $("#newWeight").val();
+            let newName = $("#new-name").val();
+            let newPrice = $("#new-price").val();
+            let newWeight = $("#new-weight").val();
             postNewProduct({
               productName: newName,
               price: newPrice,
@@ -42,23 +42,18 @@ class PostNewProduct extends React.Component {
           СОХРАНИТЬ
         </button>
 
-        <figure
-          className="postNewProductBox"
-          style={{ margin: "1em", marginLeft: "4em", marginTop: "30px" }}
-        >
-          <p style={{ fontSize: "small", marginBottom: "25px" }}>
+        <figure className="post-box">
+          <p>
             Имя:
-            <input id="newName" />
+            <input id="new-name" />
           </p>
-
-          <p style={{ fontSize: "small", marginBottom: "25px" }}>
+          <p>
             Цена:
-            <input id="newPrice" />
+            <input id="new-price" />
           </p>
-
-          <p style={{ fontSize: "small", marginBottom: "25px" }}>
+          <p>
             Вес:
-            <input id="newWeight" />
+            <input id="new-weight" />
           </p>
         </figure>
       </div>

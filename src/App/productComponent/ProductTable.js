@@ -13,9 +13,6 @@ class ProductTable extends React.Component {
       data: [],
     };
   }
-  rend() {
-    ReactDOM.render(<ProductTable />, document.getElementById("root"));
-  }
   componentDidMount() {
     getProducts(this.props.orderId).then((resp) => {
       this.setState({ data: resp.data });
@@ -24,14 +21,13 @@ class ProductTable extends React.Component {
   render() {
     return (
       <div>
-        <figure className="ProductsBox">
-          <p id={"orderId"} style={{ fontSize: "large", marginLeft: "3em" }}>
+        <figure>
+          <p id={"order-id"}>
             <strong>ПРОДУКТЫ ЗАКАЗА №{this.props.orderId}</strong>
           </p>
-          <figure style={{ marginLeft: "9.5em", marginTop: "3em" }}>
+          <figure id={"product-table"}>
             <button
-              id="addProduct"
-              style={{ backgroundColor: "darkblue", color: "whitesmoke" }}
+              className={"back-button"}
               onClick={() => {
                 ReactDOM.render(
                   <OrderTable />,
@@ -42,8 +38,7 @@ class ProductTable extends React.Component {
               НАЗАД
             </button>
             <button
-              id="addProduct"
-              style={{ backgroundColor: "red", color: "whitesmoke" }}
+              className={"delete-button"}
               onClick={() => {
                 deleteOrder(this.props.orderId).then(() => {
                   ReactDOM.render(
@@ -56,8 +51,7 @@ class ProductTable extends React.Component {
               УДАЛИТЬ ЗАКАЗ
             </button>
             <button
-              id="addProduct"
-              style={{ backgroundColor: "#6b957c", color: "whitesmoke" }}
+              className={"add-button"}
               onClick={() => {
                 ReactDOM.render(
                   <PostNewProduct orderId={this.props.orderId} />,
@@ -72,68 +66,37 @@ class ProductTable extends React.Component {
         <table>
           <tbody>
             <tr>
-              <td
-                style={{
-                  backgroundColor: "#92c492",
-                  position: "relative",
-                  color: "black",
-                }}
-              >
-                PRODUCT NUMBER
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#92c492",
-                  position: "relative",
-                  color: "black",
-                }}
-              >
-                PRODUCT NAME
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#92c492",
-                  position: "relative",
-                  color: "black",
-                }}
-              >
-                PRICE
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#92c492",
-                  position: "relative",
-                  color: "black",
-                }}
-              >
-                WEIGHT
-              </td>
+              <td className={"td-headers"}>PRODUCT NUMBER</td>
+              <td className={"td-headers"}>PRODUCT NAME</td>
+              <td className={"td-headers"}>PRICE</td>
+              <td className={"td-headers"}>WEIGHT</td>
             </tr>
           </tbody>
           {/* eslint-disable-next-line array-callback-return */}
           <tbody>
-            {this.state.data.map(function (item, key) {
-              return (
-                <tr
-                  key={key}
-                  onClick={() => {
-                    ReactDOM.render(
-                      <DeleteProduct
-                        prodNum={item.productNumber}
-                        prodId={item.id}
-                        orderNum={item.orderNumber}
-                      />,
-                      document.getElementById("root")
-                    );
-                  }}
-                >
-                  <td>{item.productNumber}</td>
-                  <td>{item.productName}</td>
-                  <td>{item.price}</td>
-                  <td>{item.weight}</td>
-                </tr>
-              );
-            })}
+            {this.state.data.map(
+              function (item) {
+                return (
+                  <tr
+                    onClick={() => {
+                      ReactDOM.render(
+                        <DeleteProduct
+                          prodNum={item.productNumber}
+                          prodId={item.id}
+                          orderId={this.props.orderId}
+                        />,
+                        document.getElementById("root")
+                      );
+                    }}
+                  >
+                    <td>{item.productNumber}</td>
+                    <td>{item.productName}</td>
+                    <td>{item.price}</td>
+                    <td>{item.weight}</td>
+                  </tr>
+                );
+              }.bind(this)
+            )}
           </tbody>
         </table>
       </div>

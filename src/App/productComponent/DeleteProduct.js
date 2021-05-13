@@ -10,8 +10,9 @@ class DeleteProduct extends React.Component {
         <p>
           Удалить товар номер {this.props.prodNum}?
           <button
-            style={{ backgroundColor: "#9ad4e4" }}
+            className={"back-button"}
             onClick={() => {
+              console.log(this.props.orderId);
               ReactDOM.render(
                 <ProductTable orderId={this.props.orderId} />,
                 document.getElementById("root")
@@ -21,7 +22,7 @@ class DeleteProduct extends React.Component {
             НАЗАД
           </button>
           <button
-            style={{ backgroundColor: "#f2805c" }}
+            className={"delete-button"}
             onClick={() => {
               deleteProduct(this.props.prodId).then(() => {
                 ReactDOM.render(

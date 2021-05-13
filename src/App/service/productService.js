@@ -15,5 +15,5 @@ export let postNewProduct = function (obj) {
 };
 
 export let getProducts = function (orderId) {
-  return axios.get(`${host}/get-products?orderId=${this.props.orderId}`);
+  return axios.get(`${host}/get-products?orderId=${orderId}`);
 };

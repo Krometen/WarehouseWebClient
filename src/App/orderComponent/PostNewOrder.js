@@ -7,9 +7,9 @@ import OrderTable from "./OrderTable";
 class PostNewOrder extends React.Component {
   render() {
     return (
-      <div style={{ margin: "2em", marginLeft: "4em" }}>
+      <div className={"post-div"}>
         <button
-          style={{ backgroundColor: "#9ad4e4" }}
+          className={"back-button"}
           onClick={() => {
             ReactDOM.render(<OrderTable />, document.getElementById("root"));
           }}
@@ -17,11 +17,11 @@ class PostNewOrder extends React.Component {
           НАЗАД
         </button>
         <button
-          style={{ backgroundColor: "#87e49a" }}
+          id={"save-button"}
           onClick={() => {
-            let newNumber = $("#newNumber").val();
-            let newDate = $("#newDate").val();
-            let newAddress = $("#newAddress").val();
+            let newNumber = $("#new-number").val();
+            let newDate = $("#new-date").val();
+            let newAddress = $("#new-address").val();
             postNewOrder({
               orderNumber: newNumber,
               date: newDate,
@@ -34,22 +34,18 @@ class PostNewOrder extends React.Component {
           СОХРАНИТЬ
         </button>
 
-        <figure
-          className="postNewOrderBox"
-          style={{ margin: "1em", marginLeft: "4em", marginTop: "30px" }}
-        >
-          <p style={{ fontSize: "small", marginBottom: "25px" }}>
+        <figure className="post-box">
+          <p>
             Номер:
-            <input id="newNumber" />
+            <input id="new-number" />
           </p>
-          <p style={{ fontSize: "small", marginBottom: "25px" }}>
+          <p>
             Дата:
-            <input type="date" id="newDate" />
+            <input type="date" id="new-date" />
           </p>
-
           <p style={{ fontSize: "small" }}>
             Адрес:
-            <input id="newAddress" />
+            <input id="new-address" />
           </p>
         </figure>
       </div>

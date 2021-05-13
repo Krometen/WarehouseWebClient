@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PostNewOrder from "./PostNewOrder";
-import ProductTable from "../productComponent/ProductTable";
 import { getOrders } from "../service/orderService";
+import ProductTable from "../productComponent/ProductTable";
 
 class OrderTable extends React.Component {
   constructor() {
@@ -19,18 +19,11 @@ class OrderTable extends React.Component {
   render() {
     return (
       <div>
-        <figure className="OrdersBox">
-          <p style={{ fontSize: "large", marginLeft: "1ex" }}>
+        <figure className="orders-box">
+          <p id={"order-header"}>
             <strong>ЗАКАЗЫ</strong>
             <button
-              id="addOrder"
-              style={{
-                backgroundColor: "#6b957c",
-                color: "whitesmoke",
-                marginTop: "1em",
-                marginLeft: "4.5em",
-                marginBottom: "0.5em",
-              }}
+              id="add-order"
               onClick={() => {
                 ReactDOM.render(
                   <PostNewOrder />,
@@ -45,41 +38,16 @@ class OrderTable extends React.Component {
         <table>
           <tbody>
             <tr>
-              <td
-                style={{
-                  backgroundColor: "#92c492",
-                  position: "relative",
-                  color: "black",
-                }}
-              >
-                NUMBER
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#92c492",
-                  position: "relative",
-                  color: "black",
-                }}
-              >
-                DATE
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#92c492",
-                  position: "relative",
-                  color: "black",
-                }}
-              >
-                ADDRESS
-              </td>
+              <td className={"td-headers"}>NUMBER</td>
+              <td className={"td-headers"}>DATE</td>
+              <td className={"td-headers"}>ADDRESS</td>
             </tr>
           </tbody>
           {/* eslint-disable-next-line array-callback-return */}
           <tbody>
-            {this.state.data.map(function (item, key) {
+            {this.state.data.map(function (item) {
               return (
                 <tr
-                  key={key}
                   onClick={() => {
                     ReactDOM.render(
                       <ProductTable orderId={item.id} />,
