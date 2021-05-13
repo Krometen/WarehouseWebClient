@@ -45,9 +45,10 @@ class OrderTable extends React.Component {
           </tbody>
           {/* eslint-disable-next-line array-callback-return */}
           <tbody>
-            {this.state.data.map(function (item) {
+            {this.state.data.map(function (item, key) {
               return (
                 <tr
+                  key={key}
                   onClick={() => {
                     ReactDOM.render(
                       <ProductTable orderId={item.id} />,

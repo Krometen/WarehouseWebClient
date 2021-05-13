@@ -75,9 +75,10 @@ class ProductTable extends React.Component {
           {/* eslint-disable-next-line array-callback-return */}
           <tbody>
             {this.state.data.map(
-              function (item) {
+              function (item, key) {
                 return (
                   <tr
+                    key={key}
                     onClick={() => {
                       ReactDOM.render(
                         <DeleteProduct
