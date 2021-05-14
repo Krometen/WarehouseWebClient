@@ -2,34 +2,31 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ProductTable from "./ProductTable";
 import { postNewProduct } from "../service/productService";
+import {
+  back,
+  nameString,
+  number,
+  price,
+  save,
+  weigth,
+} from "../service/constants";
 
 class PostNewProduct extends React.Component {
-  constructor() {
-    this.state = { name: " ", price: " ", weight: " " };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = { productNumber: "", productName: "", price: "", weight: "" };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleChange(event) {
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
     this.setState({
-      name: event.target.name,
-      price: event.target.price,
-      weight: event.target.weight,
+      [name]: value,
     });
-  }
-
-  handleSubmit(event) {
-    console.log(
-      "new name: " +
-        this.state.name +
-        "\n" +
-        "new price: " +
-        this.state.price +
-        "\n" +
-        "new weight: " +
-        this.state.weight
-    );
-    event.preventDefault();
   }
 
   render() {
@@ -44,17 +41,17 @@ class PostNewProduct extends React.Component {
             );
           }}
         >
-          НАЗАД
+          {back}
         </button>
 
         <button
           className={"save-button"}
           onClick={() => {
             postNewProduct({
-              productName: this.state.name,
+              productNumber: this.state.productNumber,
+              productName: this.state.productName,
               price: this.state.price,
               weight: this.state.weight,
-              orderNumber: this.props.orderId,
             }).then(() => {
               ReactDOM.render(
                 <ProductTable orderId={this.props.orderId} />,
@@ -63,36 +60,44 @@ class PostNewProduct extends React.Component {
             });
           }}
         >
-          СОХРАНИТЬ
+          {save}
         </button>
 
         <figure className="post-box">
-          <form onSubmit={this.handleSubmit}>
-            <p>
-              Имя:
-              <input
-                id="new-name"
-                value={this.state.name}
-                onChange={this.handleChange}
-              />
-            </p>
-            <p>
-              Цена:
-              <input
-                id="new-price"
-                value={this.state.price}
-                onChange={this.handleChange}
-              />
-            </p>
-            <p>
-              Вес:
-              <input
-                id="new-weight"
-                value={this.state.weight}
-                onChange={this.handleChange}
-              />
-            </p>
-          </form>
+          <p>
+            {number}:
+            <input
+              name="productNumber"
+              value={this.state.productNumber}
+              onChange={this.handleInputChange}
+            />
+          </p>
+          <p>
+            {nameString}:
+            <input
+              name="productName"
+              value={this.state.productName}
+              onChange={this.handleInputChange}
+            />
+          </p>
+          <p>
+            {price}:
+            <input
+              name="price"
+              type="number"
+              value={this.state.price}
+              onChange={this.handleInputChange}
+            />
+          </p>
+          <p>
+            {weigth}:
+            <input
+              name="weight"
+              type="number"
+              value={this.state.weight}
+              onChange={this.handleInputChange}
+            />
+          </p>
         </figure>
       </div>
     );

@@ -2,13 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ProductTable from "./ProductTable";
 import { deleteProduct } from "../service/productService";
+import { deleteProductNumber, back, remove } from "../service/constants";
 
 class DeleteProduct extends React.Component {
   render() {
     return (
       <div>
         <p>
-          Удалить товар номер {this.props.prodNum}?
+          {deleteProductNumber} {this.props.prodNum}?
           <button
             className={"back-button"}
             onClick={() => {
@@ -19,7 +20,7 @@ class DeleteProduct extends React.Component {
               );
             }}
           >
-            НАЗАД
+            {back}
           </button>
           <button
             className={"delete-button"}
@@ -32,7 +33,7 @@ class DeleteProduct extends React.Component {
               });
             }}
           >
-            УДАЛИТЬ
+            {remove}
           </button>
         </p>
       </div>

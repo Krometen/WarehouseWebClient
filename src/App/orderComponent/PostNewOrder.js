@@ -2,35 +2,31 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { postNewOrder } from "../service/orderService";
 import OrderTable from "./OrderTable";
+import {
+  back,
+  save,
+  number,
+  date,
+  address,
+  productIdList,
+} from "../service/constants";
 
 class PostNewOrder extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { number: " ", date: " ", address: " " };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { orderNumber: "", date: "", address: "", productIdList: "" };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleChange(event) {
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
     this.setState({
-      number: event.target.number,
-      date: event.target.date,
-      address: event.target.address,
+      [name]: value,
     });
-  }
-
-  handleSubmit(event) {
-    console.log(
-      "new number: " +
-        this.state.number +
-        "\n" +
-        "new date: " +
-        this.state.date +
-        "\n" +
-        "new address: " +
-        this.state.address
-    );
-    event.preventDefault();
   }
 
   render() {
@@ -42,51 +38,59 @@ class PostNewOrder extends React.Component {
             ReactDOM.render(<OrderTable />, document.getElementById("root"));
           }}
         >
-          НАЗАД
+          {back}
         </button>
+
         <button
           id={"save-button"}
           onClick={() => {
             postNewOrder({
-              orderNumber: this.state.number,
+              orderNumber: this.state.orderNumber,
               date: this.state.date,
               address: this.state.address,
+              productIdList: this.state.productIdList.split(","),
             }).then(() => {
               ReactDOM.render(<OrderTable />, document.getElementById("root"));
             });
           }}
         >
-          СОХРАНИТЬ
+          {save}
         </button>
 
         <figure className="post-box">
-          <form onSubmit={this.handleSubmit}>
-            <p>
-              Номер:
-              <input
-                id="new-number"
-                value={this.state.number}
-                onChange={this.handleChange}
-              />
-            </p>
-            <p>
-              Дата:
-              <input
-                type="date"
-                id="new-date"
-                value={this.state.date}
-                onChange={this.handleChange}
-              />
-            </p>
-            <p style={{ fontSize: "small" }}>
-              Адрес:
-              <input
-                id="new-address"
-                value={this.state.address}
-                onChange={this.handleChange}
-              />
-            </p>
-          </form>
+          <p>
+            {number}:
+            <input
+              name="orderNumber"
+              value={this.state.orderNumber}
+              onChange={this.handleInputChange}
+            />
+          </p>
+          <p>
+            {date}:
+            <input
+              name="date"
+              type="date"
+              value={this.state.date}
+              onChange={this.handleInputChange}
+            />
+          </p>
+          <p style={{ fontSize: "small" }}>
+            {address}:
+            <input
+              name="address"
+              value={this.state.address}
+              onChange={this.handleInputChange}
+            />
+          </p>
+          <p style={{ fontSize: "small" }}>
+            {productIdList}:
+            <input
+              name="productIdList"
+              value={this.state.productIdList}
+              onChange={this.handleInputChange}
+            />
+          </p>
         </figure>
       </div>
     );

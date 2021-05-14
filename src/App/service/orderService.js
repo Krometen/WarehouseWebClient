@@ -1,16 +1,16 @@
 import axios from "axios";
-import host from "./host";
+import { host } from "./constants";
 
 export let getOrders = function () {
   return axios.get(host + "/get-orders");
 };
 
 export let postNewOrder = function (obj) {
-  console.log(obj.address);
   return axios.post(host + "/post-new-order", {
     orderNumber: obj.orderNumber,
     date: obj.date,
     address: obj.address,
+    productIdList: obj.productIdList,
   });
 };
 

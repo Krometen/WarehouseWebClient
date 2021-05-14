@@ -5,6 +5,17 @@ import PostNewProduct from "./PostNewProduct";
 import DeleteProduct from "./DeleteProduct";
 import { getProducts } from "../service/productService";
 import { deleteOrder } from "../service/orderService";
+import {
+  addProduct,
+  back,
+  id,
+  nameString,
+  number,
+  price,
+  productsOfOrder,
+  removeOrder,
+  weigth,
+} from "../service/constants";
 
 class ProductTable extends React.Component {
   constructor() {
@@ -23,7 +34,10 @@ class ProductTable extends React.Component {
       <div>
         <figure>
           <p id={"order-id"}>
-            <strong>ПРОДУКТЫ ЗАКАЗА №{this.props.orderId}</strong>
+            <strong>
+              {productsOfOrder}
+              {this.props.orderId}
+            </strong>
           </p>
           <figure id={"product-table"}>
             <button
@@ -35,7 +49,7 @@ class ProductTable extends React.Component {
                 );
               }}
             >
-              НАЗАД
+              {back}
             </button>
             <button
               className={"delete-button"}
@@ -48,7 +62,7 @@ class ProductTable extends React.Component {
                 });
               }}
             >
-              УДАЛИТЬ ЗАКАЗ
+              {removeOrder}
             </button>
             <button
               className={"add-button"}
@@ -59,17 +73,18 @@ class ProductTable extends React.Component {
                 );
               }}
             >
-              ДОБАВИТЬ ТОВАР
+              {addProduct}
             </button>
           </figure>
         </figure>
         <table>
           <tbody>
             <tr>
-              <td className={"td-headers"}>PRODUCT NUMBER</td>
-              <td className={"td-headers"}>PRODUCT NAME</td>
-              <td className={"td-headers"}>PRICE</td>
-              <td className={"td-headers"}>WEIGHT</td>
+              <td className={"td-headers"}>{id}</td>
+              <td className={"td-headers"}>{number}</td>
+              <td className={"td-headers"}>{nameString}</td>
+              <td className={"td-headers"}>{price}</td>
+              <td className={"td-headers"}>{weigth}</td>
             </tr>
           </tbody>
           {/* eslint-disable-next-line array-callback-return */}
@@ -90,6 +105,7 @@ class ProductTable extends React.Component {
                       );
                     }}
                   >
+                    <td>{item.id}</td>
                     <td>{item.productNumber}</td>
                     <td>{item.productName}</td>
                     <td>{item.price}</td>

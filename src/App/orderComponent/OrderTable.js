@@ -3,6 +3,14 @@ import ReactDOM from "react-dom";
 import PostNewOrder from "./PostNewOrder";
 import { getOrders } from "../service/orderService";
 import ProductTable from "../productComponent/ProductTable";
+import {
+  orders,
+  addOrder,
+  id,
+  number,
+  date,
+  address,
+} from "../service/constants";
 
 class OrderTable extends React.Component {
   constructor() {
@@ -21,7 +29,7 @@ class OrderTable extends React.Component {
       <div>
         <figure className="orders-box">
           <p id={"order-header"}>
-            <strong>ЗАКАЗЫ</strong>
+            <strong>{orders}</strong>
             <button
               id="add-order"
               onClick={() => {
@@ -31,16 +39,17 @@ class OrderTable extends React.Component {
                 );
               }}
             >
-              ДОБАВИТЬ ЗАКАЗ
+              {addOrder}
             </button>
           </p>
         </figure>
         <table>
           <tbody>
             <tr>
-              <td className={"td-headers"}>NUMBER</td>
-              <td className={"td-headers"}>DATE</td>
-              <td className={"td-headers"}>ADDRESS</td>
+              <td className={"td-headers"}>{id}</td>
+              <td className={"td-headers"}>{number}</td>
+              <td className={"td-headers"}>{date}</td>
+              <td className={"td-headers"}>{address}</td>
             </tr>
           </tbody>
           {/* eslint-disable-next-line array-callback-return */}
@@ -56,6 +65,7 @@ class OrderTable extends React.Component {
                     );
                   }}
                 >
+                  <td>{item.id}</td>
                   <td>{item.orderNumber}</td>
                   <td>{item.date}</td>
                   <td>{item.address}</td>
