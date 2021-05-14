@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import PostNewOrder from "./PostNewOrder";
 import { getOrders } from "../service/orderService";
 import ProductTable from "../productComponent/ProductTable";
+import { Table } from "../presentationalComponent/Table";
 import {
   orders,
   addOrder,
@@ -43,6 +44,16 @@ class OrderTable extends React.Component {
             </button>
           </p>
         </figure>
+        <Table
+          arr={[{ id }, { number }, { date }, { address }]}
+          data={this.state.data}
+          clickAction={() => {
+            ReactDOM.render(
+              <ProductTable orderId={id} />,
+              document.getElementById("root")
+            );
+          }}
+        ></Table>
         <table>
           <tbody>
             <tr>
