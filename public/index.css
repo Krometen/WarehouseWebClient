@@ -6,69 +6,129 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 table {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif, serif;
   font-size: 14px;
   border-radius: 10px;
   border-spacing: 0;
   text-align: center;
   margin-left: 10em;
   margin-top: 2em;
-  background: #F8E391;
+  background: #f8e391;
 }
-th {
-  background: #BCEBDD;
-  color: white;
-  text-shadow: 0 1px 1px #2D2020;
-  padding: 10px 20px;
-}
-th, td {
+
+th,
+td {
   border-style: solid;
   border-width: 0 1px 1px 0;
   border-color: white;
+  padding: 3px;
 }
-th:first-child, td:first-child {
+
+th:first-child,
+td:first-child {
   text-align: left;
   background-color: #15362f;
   color: azure;
 }
+
 th:first-child {
   border-top-left-radius: 10px;
 }
+
 th:last-child {
   border-top-right-radius: 10px;
   border-right: none;
 }
-td {
-  padding: 10px 20px;
 
-}
-tr:last-child td:first-child {
-  border-radius: 0 0 0 10px;
-}
-tr:last-child td:last-child {
-  border-radius: 0 0 10px 0;
-}
-tr td:last-child {
-  border-right: none;
-}
 td {
   cursor: pointer;
 }
-td, th {
-  padding: 3px;
+
+.back-button {
+  background-color: #9ad4e4;
 }
+
+.save-button {
+  background-color: #87e49a;
+}
+
+.delete-button {
+  background-color: #f2805c;
+}
+
+.add-button {
+  background-color: #6b957c;
+  color: whitesmoke;
+}
+
+#product-table {
+  margin-left: 9.5em;
+  margin-top: 3em;
+}
+
+#order-id {
+  font-size: large;
+  margin-left: 3em;
+}
+
+.post-box {
+  font-size: small;
+  margin: 30px 1em 25px 4em;
+}
+
+.post-box {
+  font-size: small;
+  margin: 30px 1em 25px 4em;
+}
+
+.post-div {
+  margin: 2em 2em 2em 4em;
+}
+
+th {
+  background-color: #92c492;
+  position: relative;
+  color: black;
+}
+
+tr:last-child td:first-child {
+  border-radius: 0 0 0 10px;
+}
+
+tr:last-child td:last-child {
+  border-radius: 0 0 10px 0;
+}
+
+tr td:last-child {
+  border-right: none;
+}
+
 tbody tr:hover {
   background: green;
   color: cornsilk;
 }
-button{
+
+button {
   cursor: pointer;
   font-size: small;
   margin: 5px;
   background-color: #f2805c;
+}
+
+#order-header {
+  font-size: large;
+  margin-left: 1ex;
+}
+
+#add-order {
+  background-color: #6b957c;
+  color: whitesmoke;
+  margin-top: 1em;
+  margin-left: 4.5em;
+  margin-bottom: 0.5em;
 }
