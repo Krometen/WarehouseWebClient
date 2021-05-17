@@ -1,4 +1,4 @@
-export const host = "http://localhost:8081";
+export const host = "http://localhost:8080";
 export const orders = "ЗАКАЗЫ";
 export const addOrder = "ДОБАВИТЬ ЗАКАЗ";
 export const id = "ID";
