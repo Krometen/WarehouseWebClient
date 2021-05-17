@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ProductTable from "./ProductTable";
+import { ProductTable } from "./ProductTable";
 import { deleteProduct } from "../service/productService";
 import { deleteProductNumber, back, remove } from "../service/constants";
 
-class DeleteProduct extends React.Component {
+export class DeleteProduct extends React.Component {
   renderProductTable() {
     ReactDOM.render(
       <ProductTable orderId={this.props.orderId} />,
@@ -23,7 +23,10 @@ class DeleteProduct extends React.Component {
       <div>
         <p>
           {deleteProductNumber} {this.props.prodNum}?
-          <button className={"back-button"} onClick={this.renderProductTable}>
+          <button
+            className={"back-button"}
+            onClick={this.renderProductTable.bind(this)}
+          >
             {back}
           </button>
           <button
@@ -37,5 +40,3 @@ class DeleteProduct extends React.Component {
     );
   }
 }
-
-export default DeleteProduct;

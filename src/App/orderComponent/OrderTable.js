@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import PostNewOrder from "./PostNewOrder";
+import { PostNewOrder } from "./PostNewOrder";
 import { getOrders } from "../service/orderService";
-import ProductTable from "../productComponent/ProductTable";
+import { ProductTable } from "../productComponent/ProductTable";
 import { Table } from "../presentationalComponent/Table";
 import {
   orders,
@@ -13,7 +13,7 @@ import {
   address,
 } from "../service/constants";
 
-class OrderTable extends React.Component {
+export class OrderTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,5 +52,3 @@ class OrderTable extends React.Component {
     );
   }
 }
-
-export default OrderTable;

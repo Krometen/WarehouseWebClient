@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ProductTable from "./ProductTable";
+import { ProductTable } from "./ProductTable";
 import { postNewProduct } from "../service/productService";
 import {
   back,
@@ -11,7 +11,7 @@ import {
   weight,
 } from "../service/constants";
 
-class PostNewProduct extends React.Component {
+export class PostNewProduct extends React.Component {
   constructor(props) {
     super(props);
     this.state = { productNumber: "", productName: "", price: "", weight: "" };
@@ -50,7 +50,10 @@ class PostNewProduct extends React.Component {
   render() {
     return (
       <div className={"post-div"}>
-        <button className={"back-button"} onClick={this.renderProductTable}>
+        <button
+          className={"back-button"}
+          onClick={this.renderProductTable.bind(this)}
+        >
           {back}
         </button>
 
@@ -98,5 +101,3 @@ class PostNewProduct extends React.Component {
     );
   }
 }
-
-export default PostNewProduct;

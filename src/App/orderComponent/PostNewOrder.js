@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { postNewOrder } from "../service/orderService";
-import OrderTable from "./OrderTable";
+import { OrderTable } from "./OrderTable";
 
 import {
   back,
@@ -12,7 +12,7 @@ import {
   productIdList,
 } from "../service/constants";
 
-class PostNewOrder extends React.Component {
+export class PostNewOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = { orderNumber: "", date: "", address: "", productIdList: "" };
@@ -95,5 +95,3 @@ class PostNewOrder extends React.Component {
     );
   }
 }
-
-export default PostNewOrder;

@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import OrderTable from "../orderComponent/OrderTable";
-import PostNewProduct from "./PostNewProduct";
-import DeleteProduct from "./DeleteProduct";
+import { OrderTable } from "../orderComponent/OrderTable";
+import { PostNewProduct } from "./PostNewProduct";
+import { DeleteProduct } from "./DeleteProduct";
 import { getProducts } from "../service/productService";
 import { deleteOrder } from "../service/orderService";
 import {
@@ -18,7 +18,7 @@ import {
 } from "../service/constants";
 import { Table } from "../presentationalComponent/Table";
 
-class ProductTable extends React.Component {
+export class ProductTable extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -91,5 +91,3 @@ class ProductTable extends React.Component {
     );
   }
 }
-
-export default ProductTable;
