@@ -2,14 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ProductTable } from "./ProductTable";
 import { postNewProduct } from "../service/productService";
-import {
-  back,
-  nameString,
-  number,
-  price,
-  save,
-  weight,
-} from "../service/constants";
+import { BACK, NAME, NUMBER, PRICE, SAVE, WEIGHT } from "../service/constants";
 
 export class PostNewProduct extends React.Component {
   constructor(props) {
@@ -54,16 +47,16 @@ export class PostNewProduct extends React.Component {
           className={"back-button"}
           onClick={this.renderProductTable.bind(this)}
         >
-          {back}
+          {BACK}
         </button>
 
         <button className={"save-button"} onClick={this.saveProduct.bind(this)}>
-          {save}
+          {SAVE}
         </button>
 
         <figure className="post-box">
           <p>
-            {number}:
+            {NUMBER}:
             <input
               name="productNumber"
               value={this.state.productNumber}
@@ -71,7 +64,7 @@ export class PostNewProduct extends React.Component {
             />
           </p>
           <p>
-            {nameString}:
+            {NAME}:
             <input
               name="productName"
               value={this.state.productName}
@@ -79,7 +72,7 @@ export class PostNewProduct extends React.Component {
             />
           </p>
           <p>
-            {price}:
+            {PRICE}:
             <input
               name="price"
               type="number"
@@ -88,7 +81,7 @@ export class PostNewProduct extends React.Component {
             />
           </p>
           <p>
-            {weight}:
+            {WEIGHT}:
             <input
               name="weight"
               type="number"

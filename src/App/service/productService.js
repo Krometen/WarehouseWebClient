@@ -1,12 +1,12 @@
 import axios from "axios";
-import { host } from "./constants";
+import { HOST } from "./constants";
 
 export let deleteProduct = function (prodId) {
-  return axios.delete(`${host}/delete-product?id=${prodId}`);
+  return axios.delete(`${HOST}/delete-product?id=${prodId}`);
 };
 
 export let postNewProduct = function (obj) {
-  return axios.post(host + "/post-new-product", {
+  return axios.post(HOST + "/post-new-product", {
     productNumber: obj.productNumber,
     productName: obj.productName,
     price: obj.price,
@@ -16,5 +16,5 @@ export let postNewProduct = function (obj) {
 };
 
 export let getProducts = function (orderId) {
-  return axios.get(`${host}/get-products?orderId=${orderId}`);
+  return axios.get(`${HOST}/get-products?orderId=${orderId}`);
 };

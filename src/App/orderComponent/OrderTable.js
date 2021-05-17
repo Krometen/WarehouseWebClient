@@ -5,12 +5,12 @@ import { getOrders } from "../service/orderService";
 import { ProductTable } from "../productComponent/ProductTable";
 import { Table } from "../presentationalComponent/Table";
 import {
-  orders,
-  addOrder,
-  id,
-  number,
-  date,
-  address,
+  ORDERS,
+  ADD_ORDER,
+  ID,
+  NUMBER,
+  DATE,
+  ADDRESS,
 } from "../service/constants";
 
 export class OrderTable extends React.Component {
@@ -36,14 +36,14 @@ export class OrderTable extends React.Component {
       <div>
         <figure className="orders-box">
           <p id={"order-header"}>
-            <strong>{orders}</strong>
+            <strong>{ORDERS}</strong>
             <button id="add-order" onClick={this.renderPostNewOrder}>
-              {addOrder}
+              {ADD_ORDER}
             </button>
           </p>
         </figure>
         <Table
-          headers={[id, number, date, address]}
+          headers={[ID, NUMBER, DATE, ADDRESS]}
           data={this.state.data}
           renderOnClick={ProductTable}
           sentProperties={[{ orderId: "id" }]}

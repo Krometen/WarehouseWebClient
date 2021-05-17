@@ -6,15 +6,15 @@ import { DeleteProduct } from "./DeleteProduct";
 import { getProducts } from "../service/productService";
 import { deleteOrder } from "../service/orderService";
 import {
-  addProduct,
-  back,
-  id,
-  nameString,
-  number,
-  price,
-  productsOfOrder,
-  removeOrder,
-  weight,
+  ADD_PRODUCT,
+  BACK,
+  NAME,
+  NUMBER,
+  PRICE,
+  PRODUCTS_OF_ORDER,
+  REMOVE_ORDER,
+  WEIGHT,
+  ID,
 } from "../service/constants";
 import { Table } from "../presentationalComponent/Table";
 
@@ -55,30 +55,30 @@ export class ProductTable extends React.Component {
         <figure>
           <p id={"order-id"}>
             <strong>
-              {productsOfOrder}
+              {PRODUCTS_OF_ORDER}
               {this.props.orderId}
             </strong>
           </p>
           <figure id={"product-table"}>
             <button className={"back-button"} onClick={this.renderOrderTable}>
-              {back}
+              {BACK}
             </button>
             <button
               className={"delete-button"}
               onClick={this.removeOpenOrder.bind(this)}
             >
-              {removeOrder}
+              {REMOVE_ORDER}
             </button>
             <button
               className={"add-button"}
               onClick={this.addNewProduct.bind(this)}
             >
-              {addProduct}
+              {ADD_PRODUCT}
             </button>
           </figure>
         </figure>
         <Table
-          headers={[id, number, nameString, price, weight]}
+          headers={[ID, NUMBER, NAME, PRICE, WEIGHT]}
           data={this.state.data}
           renderOnClick={DeleteProduct}
           sentProperties={[

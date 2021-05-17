@@ -1,12 +1,12 @@
 import axios from "axios";
-import { host } from "./constants";
+import { HOST } from "./constants";
 
 export let getOrders = function () {
-  return axios.get(host + "/get-orders");
+  return axios.get(HOST + "/get-orders");
 };
 
 export let postNewOrder = function (obj) {
-  return axios.post(host + "/post-new-order", {
+  return axios.post(HOST + "/post-new-order", {
     orderNumber: obj.orderNumber,
     date: obj.date,
     address: obj.address,
@@ -15,5 +15,5 @@ export let postNewOrder = function (obj) {
 };
 
 export let deleteOrder = function (orderId) {
-  return axios.delete(`${host}/delete-order?id=${orderId}`);
+  return axios.delete(`${HOST}/delete-order?id=${orderId}`);
 };

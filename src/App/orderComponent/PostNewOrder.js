@@ -4,12 +4,12 @@ import { postNewOrder } from "../service/orderService";
 import { OrderTable } from "./OrderTable";
 
 import {
-  back,
-  save,
-  number,
-  date,
-  address,
-  productIdList,
+  BACK,
+  SAVE,
+  NUMBER,
+  DATE,
+  ADDRESS,
+  PRODUCT_ID_LIST,
 } from "../service/constants";
 
 export class PostNewOrder extends React.Component {
@@ -49,16 +49,16 @@ export class PostNewOrder extends React.Component {
     return (
       <div className={"post-div"}>
         <button className={"back-button"} onClick={this.renderOrderTable}>
-          {back}
+          {BACK}
         </button>
 
         <button id={"save-button"} onClick={this.saveNewOrder.bind(this)}>
-          {save}
+          {SAVE}
         </button>
 
         <figure className="post-box">
           <p>
-            {number}:
+            {NUMBER}:
             <input
               name="orderNumber"
               value={this.state.orderNumber}
@@ -66,7 +66,7 @@ export class PostNewOrder extends React.Component {
             />
           </p>
           <p>
-            {date}:
+            {DATE}:
             <input
               name="date"
               type="date"
@@ -75,7 +75,7 @@ export class PostNewOrder extends React.Component {
             />
           </p>
           <p style={{ fontSize: "small" }}>
-            {address}:
+            {ADDRESS}:
             <input
               name="address"
               value={this.state.address}
@@ -83,7 +83,7 @@ export class PostNewOrder extends React.Component {
             />
           </p>
           <p style={{ fontSize: "small" }}>
-            {productIdList}:
+            {PRODUCT_ID_LIST}:
             <input
               name="productIdList"
               value={this.state.productIdList}
