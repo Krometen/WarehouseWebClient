@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { PostNewOrder } from "./PostNewOrder";
+import { Provider } from "react-redux";
+import { store } from "../../../App/store/store";
 import { getOrders } from "../service/orderService";
-import { ProductTable } from "../productComponent/ProductTable";
 import { Table } from "../presentationalComponent/Table";
+import { COMPONENT_PRODUCT_TABLE_WRAP } from "../wrapComponent/ComponentProductTable_wrap";
+import { COMPONENT_NEW_ORDER_WRAP } from "../../component/wrapComponent/ComponentPostNewOrder_wrap";
 import {
   ORDERS,
   ADD_ORDER,
@@ -14,21 +16,19 @@ import {
 } from "../service/constants";
 
 export class OrderTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-    };
-  }
-
   componentDidMount() {
     getOrders().then((resp) => {
-      this.setState({ data: resp.data });
+      this.props.setOrderData(resp.data);
     });
   }
 
   renderPostNewOrder() {
-    ReactDOM.render(<PostNewOrder />, document.getElementById("root"));
+    ReactDOM.render(
+      <Provider store={store}>
+        <COMPONENT_NEW_ORDER_WRAP />
+      </Provider>,
+      document.getElementById("root")
+    );
   }
 
   render() {
@@ -44,8 +44,8 @@ export class OrderTable extends React.Component {
         </figure>
         <Table
           headers={[ID, NUMBER, DATE, ADDRESS]}
-          data={this.state.data}
-          renderOnClick={ProductTable}
+          data={this.props.orderData}
+          renderOnClick={COMPONENT_PRODUCT_TABLE_WRAP}
           sentProperties={[{ orderId: "id" }]}
         />
       </div>

@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ProductTable } from "./ProductTable";
+import { Provider } from "react-redux";
+import { store } from "../.././store/store";
 import { postNewProduct } from "../service/productService";
 import { BACK, NAME, NUMBER, PRICE, SAVE, WEIGHT } from "../service/constants";
+import { COMPONENT_PRODUCT_TABLE_WRAP } from "../.././component/wrapComponent/ComponentProductTable_wrap";
 
 export class PostNewProduct extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { productNumber: "", productName: "", price: "", weight: "" };
-
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
@@ -16,25 +16,27 @@ export class PostNewProduct extends React.Component {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-
-    this.setState({
+    this.props.setNewProductData({
+      ...this.props.newProductData,
       [name]: value,
     });
   }
 
   renderProductTable() {
     ReactDOM.render(
-      <ProductTable orderId={this.props.orderId} />,
+      <Provider store={store}>
+        <COMPONENT_PRODUCT_TABLE_WRAP orderId={this.props.orderId} />
+      </Provider>,
       document.getElementById("root")
     );
   }
 
   saveProduct() {
     postNewProduct({
-      productNumber: this.state.productNumber,
-      productName: this.state.productName,
-      price: this.state.price,
-      weight: this.state.weight,
+      productNumber: this.props.newProductData.productNumber,
+      productName: this.props.newProductData.productName,
+      price: this.props.newProductData.price,
+      weight: this.props.newProductData.weight,
     }).then(() => {
       this.renderProductTable();
     });
@@ -59,7 +61,7 @@ export class PostNewProduct extends React.Component {
             {NUMBER}:
             <input
               name="productNumber"
-              value={this.state.productNumber}
+              defaultValue={this.props.newProductData.productNumber}
               onChange={this.handleInputChange}
             />
           </p>
@@ -67,7 +69,7 @@ export class PostNewProduct extends React.Component {
             {NAME}:
             <input
               name="productName"
-              value={this.state.productName}
+              defaultValue={this.props.newProductData.productName}
               onChange={this.handleInputChange}
             />
           </p>
@@ -76,7 +78,7 @@ export class PostNewProduct extends React.Component {
             <input
               name="price"
               type="number"
-              value={this.state.price}
+              defaultValue={this.props.newProductData.price}
               onChange={this.handleInputChange}
             />
           </p>
@@ -85,7 +87,7 @@ export class PostNewProduct extends React.Component {
             <input
               name="weight"
               type="number"
-              value={this.state.weight}
+              defaultValue={this.props.newProductData.weight}
               onChange={this.handleInputChange}
             />
           </p>

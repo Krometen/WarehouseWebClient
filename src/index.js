@@ -1,5 +1,11 @@
 import ReactDOM from "react-dom";
-import { OrderTable } from "./App/orderComponent/OrderTable";
+import { Provider } from "react-redux";
+import { store } from "./App/store/store";
+import { COMPONENT_ORDER_TABLE_WRAP } from "./App/component/wrapComponent/ComponentOrderTable_wrap";
 
-//Начальная страница - таблица заказов
-ReactDOM.render(<OrderTable />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <COMPONENT_ORDER_TABLE_WRAP />
+  </Provider>,
+  document.getElementById("root")
+);

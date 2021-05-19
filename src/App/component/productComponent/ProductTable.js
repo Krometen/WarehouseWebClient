@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { OrderTable } from "../orderComponent/OrderTable";
-import { PostNewProduct } from "./PostNewProduct";
+import { Provider } from "react-redux";
+import { store } from "../../store/store";
 import { DeleteProduct } from "./DeleteProduct";
-import { getProducts } from "../service/productService";
 import { deleteOrder } from "../service/orderService";
+import { getProducts } from "../service/productService";
+import { Table } from "../presentationalComponent/Table";
+import { COMPONENT_ORDER_TABLE_WRAP } from "../../component/wrapComponent/ComponentOrderTable_wrap";
+import { COMPONENT_NEW_PRODUCT_WRAP } from "../../component/wrapComponent/ComponentPostNewProduct_wrap";
 import {
   ADD_PRODUCT,
   BACK,
@@ -16,24 +19,21 @@ import {
   WEIGHT,
   ID,
 } from "../service/constants";
-import { Table } from "../presentationalComponent/Table";
 
 export class ProductTable extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      data: [],
-    };
-  }
-
   componentDidMount() {
     getProducts(this.props.orderId).then((resp) => {
-      this.setState({ data: resp.data });
+      this.props.setProductData(resp.data);
     });
   }
 
   renderOrderTable() {
-    ReactDOM.render(<OrderTable />, document.getElementById("root"));
+    ReactDOM.render(
+      <Provider store={store}>
+        <COMPONENT_ORDER_TABLE_WRAP />
+      </Provider>,
+      document.getElementById("root")
+    );
   }
 
   removeOpenOrder() {
@@ -44,7 +44,9 @@ export class ProductTable extends React.Component {
 
   addNewProduct() {
     ReactDOM.render(
-      <PostNewProduct orderId={this.props.orderId} />,
+      <Provider store={store}>
+        <COMPONENT_NEW_PRODUCT_WRAP orderId={this.props.orderId} />
+      </Provider>,
       document.getElementById("root")
     );
   }
@@ -79,7 +81,7 @@ export class ProductTable extends React.Component {
         </figure>
         <Table
           headers={[ID, NUMBER, NAME, PRICE, WEIGHT]}
-          data={this.state.data}
+          data={this.props.productData}
           renderOnClick={DeleteProduct}
           sentProperties={[
             { prodNum: "productNumber" },

@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { store } from "../../../App/store/store";
 
 /*
  * props:
@@ -21,9 +23,10 @@ export let Table = function (props) {
         send[propName] = item[propReq];
       }
     });
-    console.log(send);
     ReactDOM.render(
-      React.createElement(props.renderOnClick, send),
+      <Provider store={store}>
+        {React.createElement(props.renderOnClick, send)}
+      </Provider>,
       document.getElementById("root")
     );
   };

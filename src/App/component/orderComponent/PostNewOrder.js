@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { store } from "../.././store/store";
 import { postNewOrder } from "../service/orderService";
-import { OrderTable } from "./OrderTable";
-
+import { COMPONENT_ORDER_TABLE_WRAP } from "../.././component/wrapComponent/ComponentOrderTable_wrap";
 import {
   BACK,
   SAVE,
@@ -15,8 +16,6 @@ import {
 export class PostNewOrder extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { orderNumber: "", date: "", address: "", productIdList: "" };
-
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
@@ -24,22 +23,24 @@ export class PostNewOrder extends React.Component {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-
-    this.setState({
-      [name]: value,
-    });
+    this.props.setNewOrderData({ ...this.props.newOrderData, [name]: value });
   }
 
   renderOrderTable() {
-    ReactDOM.render(<OrderTable />, document.getElementById("root"));
+    ReactDOM.render(
+      <Provider store={store}>
+        <COMPONENT_ORDER_TABLE_WRAP />
+      </Provider>,
+      document.getElementById("root")
+    );
   }
 
   saveNewOrder() {
     postNewOrder({
-      orderNumber: this.state.orderNumber,
-      date: this.state.date,
-      address: this.state.address,
-      productIdList: this.state.productIdList.split(","),
+      orderNumber: this.props.newOrderData.orderNumber,
+      date: this.props.newOrderData.date,
+      address: this.props.newOrderData.address,
+      productIdList: this.props.newOrderData.productIdList.split(","),
     }).then(() => {
       this.renderOrderTable();
     });
@@ -61,7 +62,7 @@ export class PostNewOrder extends React.Component {
             {NUMBER}:
             <input
               name="orderNumber"
-              value={this.state.orderNumber}
+              defaultValue={this.props.newOrderData.orderNumber}
               onChange={this.handleInputChange}
             />
           </p>
@@ -70,7 +71,7 @@ export class PostNewOrder extends React.Component {
             <input
               name="date"
               type="date"
-              value={this.state.date}
+              defaultValue={this.props.newOrderData.date}
               onChange={this.handleInputChange}
             />
           </p>
@@ -78,7 +79,7 @@ export class PostNewOrder extends React.Component {
             {ADDRESS}:
             <input
               name="address"
-              value={this.state.address}
+              defaultValue={this.props.newOrderData.address}
               onChange={this.handleInputChange}
             />
           </p>
@@ -86,7 +87,7 @@ export class PostNewOrder extends React.Component {
             {PRODUCT_ID_LIST}:
             <input
               name="productIdList"
-              value={this.state.productIdList}
+              defaultValue={this.props.newOrderData.productIdList}
               onChange={this.handleInputChange}
             />
           </p>
